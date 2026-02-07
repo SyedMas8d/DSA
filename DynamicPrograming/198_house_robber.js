@@ -34,4 +34,26 @@ function houseRobber(nums) {
 
 // Show detailed explanation
 houseRobber([1, 2, 3, 1]);
+houseRobber([2, 1, 1, 2, 1, 3, 7, 5, 2]);
 houseRobber([2, 7, 9, 3, 1]);
+
+// Understandable solution
+// [2,1,1,2]
+
+// dp[0 , 2, 2, 4]
+function rob(nums) {
+    if (nums.length === 0) return 0;
+    if (nums.length === 1) return nums[0];
+
+    // dp[i] represents max money that can be robbed up to house i
+    let dp = new Array(nums.length);
+    dp[0] = nums[0];
+    dp[1] = Math.max(nums[0], nums[1]);
+
+    for (let i = 2; i < nums.length; i++) {
+        // Either rob current house + max from i-2, or skip current and take max from i-1
+        dp[i] = Math.max(nums[i] + dp[i - 2], dp[i - 1]);
+    }
+
+    return dp[nums.length - 1];
+}
