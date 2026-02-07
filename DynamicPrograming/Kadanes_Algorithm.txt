@@ -1,0 +1,51 @@
+// Given an integer array nums, find the subarray with the largest sum, and return its sum.
+
+// Example 1:
+
+// Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+// Output: 6
+// Explanation: The subarray [4,-1,2,1] has the largest sum 6.
+
+Kadane's Algorithm
+Kadane's Algorithm is an efficient dynamic programming algorithm that finds the maximum sum of a contiguous subarray in O(n) time and O(1) space.
+
+Core Concept
+The algorithm works by iterating through the array once and at each position deciding:
+
+Should I extend the current subarray (add current element to previous sum)?
+Or start a new subarray (begin fresh from current element)?
+How It Solves the Maximum Subarray Problem
+For the example nums = [-2,1,-3,4,-1,2,1,-5,4]:
+
+Track two values:
+
+currentSum: Maximum sum ending at the current position
+maxSum: Global maximum sum found so far
+Key insight: At each element, currentSum = Math.max(nums[i], currentSum + nums[i])
+
+If currentSum + nums[i] is negative or less than nums[i] alone, start fresh
+Step-by-step execution:
+
+Index:  0   1   2   3   4   5   6   7   8
+nums:  -2   1  -3   4  -1   2   1  -5   4
+
+current: -2   1  -2   4   3   5   6   1   5
+max:     -2   1   1   4   4   5   6   6   6
+
+function maxSubArray(nums) {
+    let currentSum = nums[0];
+    let maxSum = nums[0];
+    
+    for (let i = 1; i < nums.length; i++) {
+        currentSum = Math.max(nums[i], currentSum + nums[i]);
+        maxSum = Math.max(maxSum, currentSum);
+    }
+    
+    return maxSum;
+}
+
+Why It's Efficient
+Time: O(n) - single pass through the array
+Space: O(1) - only two variables needed
+Alternative brute force: O(n²) or O(n³) checking all possible subarrays
+The algorithm discards negative prefixes immediately, ensuring we never carry forward sums that would decrease our maximum.
