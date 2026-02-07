@@ -1,0 +1,91 @@
+================================================================================
+                    DYNAMIC PROGRAMMING PATTERNS
+================================================================================
+
+--------------------------------------------------------------------------------
+1. FIBONACCI NUMBERS
+--------------------------------------------------------------------------------
+   Problem: Climbing Stairs
+   Solution: https://youtu.be/Y0lT9Fck7qI
+   LeetCode: https://leetcode.com/problems/climbing-stairs/
+
+   Problem: House Robber
+   Solution: https://youtu.be/73r3KWiEvyk
+   LeetCode: https://leetcode.com/problems/house-robber/
+
+   Problem: Fibonacci Number
+   Solution: N/A
+   LeetCode: https://leetcode.com/problems/fibonacci-number/
+
+   Problem: Maximum Alternating Subsequence Sum
+   Solution: https://youtu.be/4v42XOuU1XA
+   LeetCode: https://leetcode.com/problems/maximum-alternating-subsequence-sum/
+
+
+--------------------------------------------------------------------------------
+2. ZERO / ONE KNAPSACK
+--------------------------------------------------------------------------------
+   Problem: Partition Equal Subset Sum
+   Solution: https://youtu.be/IsvocB5BJhw
+   LeetCode: https://leetcode.com/problems/partition-equal-subset-sum/
+
+   Problem: Target Sum
+   Solution: https://www.youtube.com/watch?v=g0npyaQtAQM
+   LeetCode: https://leetcode.com/problems/target-sum/
+
+
+--------------------------------------------------------------------------------
+3. UNBOUNDED KNAPSACK
+--------------------------------------------------------------------------------
+   Problem: Coin Change
+   Solution: https://youtu.be/H9bfqozjoqs
+   LeetCode: https://leetcode.com/problems/coin-change/
+
+   Problem: Coin Change II
+   Solution: https://www.youtube.com/watch?v=Mjy4hd2xgrs
+   LeetCode: https://leetcode.com/problems/coin-change-2/
+
+   Problem: Minimum Cost for Tickets
+   Solution: https://www.youtube.com/watch?v=4pY1bsBpIY4
+   LeetCode: https://leetcode.com/problems/minimum-cost-for-tickets/
+
+
+--------------------------------------------------------------------------------
+4. LONGEST COMMON SUBSEQUENCE (LCS)
+--------------------------------------------------------------------------------
+   Problem: Longest Common Subsequence
+   Solution: https://youtu.be/Ua0GhsJSlWM
+   LeetCode: https://leetcode.com/problems/longest-common-subsequence/
+
+   Problem: Longest Increasing Subsequence
+   Solution: https://youtu.be/cjWnW0hdF1Y
+   LeetCode: https://leetcode.com/problems/longest-increasing-subsequence/
+
+   Problem: Edit Distance
+   Solution: https://youtu.be/XYi2-LPrwm4
+   LeetCode: https://leetcode.com/problems/edit-distance/
+
+   Problem: Distinct Subsequences
+   Solution: https://youtu.be/-RDzMJ33nx8
+   LeetCode: https://leetcode.com/problems/distinct-subsequences/
+
+
+--------------------------------------------------------------------------------
+5. PALINDROMES
+--------------------------------------------------------------------------------
+   Problem: Longest Palindromic Substring
+   Solution: https://youtu.be/XYQecbcd6_c
+   LeetCode: https://leetcode.com/problems/longest-palindromic-substring
+
+   Problem: Palindromic Substrings
+   Solution: https://youtu.be/4RACzI5-du8
+   LeetCode: https://leetcode.com/problems/palindromic-substrings/
+
+   Problem: Longest Palindromic Subsequence
+   Solution: N/A
+   LeetCode: https://leetcode.com/problems/longest-palindromic-subsequence/
+
+
+================================================================================
+                              END OF PATTERNS
+================================================================================
