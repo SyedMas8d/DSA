@@ -28,13 +28,18 @@
 // Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 
 function twoSum(nums, target) {
-  for (i = 0; i < nums.length; i++) {
-    for (j = 0; j < nums.length; j++) {
-      if (i != j && nums[j] + nums[i] === target) {
-        return [i, j];
-      }
+    let keyMapper = {};
+
+    for (let i = 0; i < nums.length; i++) {
+        const perfectHalf = target - nums[i];
+
+        if (keyMapper[perfectHalf] != undefined) {
+            return [keyMapper[perfectHalf], i];
+        }
+
+        keyMapper[nums[i]] = i;
+        console.log(keyMapper);
     }
-  }
 }
 
 // HASH MAP
@@ -43,21 +48,21 @@ function twoSum(nums, target) {
 // Hash Map Approach - Optimal Solution
 // Time Complexity: O(n), Space Complexity: O(n)
 function twoSumOptimal(nums, target) {
-  const numMap = new Map(); // or use {} for plain object
+    const numMap = new Map(); // or use {} for plain object
 
-  for (let i = 0; i < nums.length; i++) {
-    const complement = target - nums[i];
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
 
-    // Check if complement exists in map
-    if (numMap.has(complement)) {
-      return [numMap.get(complement), i];
+        // Check if complement exists in map
+        if (numMap.has(complement)) {
+            return [numMap.get(complement), i];
+        }
+
+        // Store current number and its index
+        numMap.set(nums[i], i);
     }
 
-    // Store current number and its index
-    numMap.set(nums[i], i);
-  }
-
-  return [];
+    return [];
 }
 
 const result1 = twoSum([2, 7, 11, 15], 9);
@@ -65,5 +70,5 @@ const result2 = twoSum([3, 2, 4], 6);
 const result1Optimal = twoSumOptimal([2, 7, 11, 15], 9);
 const result2Optimal = twoSumOptimal([3, 2, 4], 6);
 
-console.log("Brute Force:", result1, result2);
-console.log("Hash Map (Optimal):", result1Optimal, result2Optimal);
+console.log('Brute Force:', result1, result2);
+console.log('Hash Map (Optimal):', result1Optimal, result2Optimal);
