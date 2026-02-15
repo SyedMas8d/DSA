@@ -18,7 +18,7 @@
 
 // 1 <= nums.length <= 2500
 // -104 <= nums[i] <= 104
-
+// [1,2,4,3]
 // Approach 2: Binary Search + DP - O(n log n) Time, O(n) Space (OPTIMAL)
 function longestIncreasingSubsequence_Optimal(nums) {
     if (nums.length === 0) return 0;

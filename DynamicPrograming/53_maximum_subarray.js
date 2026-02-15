@@ -17,31 +17,36 @@
 // Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 
 function maxSubArray(nums) {
-    let maxVal = nums[0];
-    let currSum = 0;
-
-    for (let i = 0; i < nums.length; i++) {
-        currSum += nums[i];
-
-        if (currSum < 0) {
-            currSum = 0;
+    let sum = Math.max(0, nums[0]);
+    let max = sum;
+    for (let i = 1; i < nums.length; i++) {
+        sum += nums[i];
+        if (sum < 0) {
+            sum = 0;
         }
-
-        maxVal = Math.max(maxVal, currSum);
+        max = Math.max(max, sum);
     }
 
-    return maxVal === 0 ? Math.max(...nums) : maxVal;
+    return max === 0 ? Math.max(...nums) : max;
 }
 
 console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
 
 function maxSubArrayOptimal(nums) {
-    let maxSum = nums[0];
-    let curSum = 0;
+    let currSum = arr[0];
+    let maxSum = arr[0];
 
-    for (let i = 0; i < nums.length; i++) {
-        curSum = Math.max(nums[i], curSum + nums[i]);
-        maxSum = Math.max(maxSum, curSum);
+    for (let i = 1; i < arr.length; i++) {
+        if (currSum + arr[i] > arr[i]) {
+            currSum += arr[i];
+        } else {
+            currSum = arr[i];
+        }
+
+        if (currSum > maxSum) {
+            maxSum = currSum;
+        }
     }
+
     return maxSum;
 }

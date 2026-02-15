@@ -44,6 +44,7 @@ function longestCommonSubsequence(text1, text2) {
     return dp[m][n];
 }
 
-console.log(longestCommonSubsequence('abcde', 'ace'));
-console.log(longestCommonSubsequence('abcabc', 'abc'));
-console.log(longestCommonSubsequence('abc', 'def'));
+// console.log(longestCommonSubsequence('abcde', 'ace'));
+// console.log(longestCommonSubsequence('abcabc', 'abc'));
+// console.log(longestCommonSubsequence('abc', 'def'));
+console.log(longestCommonSubsequence('ezupkr', 'ubmrapg'));
