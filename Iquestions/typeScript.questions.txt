@@ -1,0 +1,313 @@
+
+
+1. trie data structure
+----------------------
+2. linked list
+-----------------
+3. Stack & queue
+-----------------
+4. trees
+---------
+5. Graph
+--------
+6. 
+
+1.What is the difference between interface and type in TypeScript?
+------------------------------------------------------------------
+        In TypeScript, both interface and type (type alias) are used to define the shape of objects, 
+        but they have key distinctions in their capabilities and how they handle certain features. 
+        The main differences are in declaration merging and the ability to define non-object types like unions and primitives. 
+    key points
+    1.In interface we can extends the object shape by extends keywords
+    2.Primarily for object shapes. 
+        Cannot be used to define primitives, union types, or tuple types directly with the interface keyword.
+        But we can define primitive for types
+
+        ex: 
+        type MyString = string;  we can't do Interface MyString = string (X) 
+        type Result = string | number;
+        type Pair = [string, number];
+
+    4️⃣ Performance Myth (Important)
+
+You may hear:
+
+“interface is faster than type”
+
+Modern TypeScript versions treat them almost identically in performance.
+This difference is negligible in real-world apps.
+
+5️⃣ Senior Engineering Recommendation
+
+In scalable backend/frontend architecture:
+
+Use type when:
+
+You’re working with DTO transformations
+
+Using utility types
+
+Creating unions
+
+Writing generic-heavy code
+
+Use interface when:
+
+Defining domain models
+
+Designing extensible APIs
+
+Working with OOP-heavy patterns
+
+🔥 My Practical Rule (What Many Senior Devs Do)
+Use `type` for everything.
+Switch to `interface` only when you specifically need declaration merging or class contracts.
+
+
+It keeps your code consistent.
+
+🎯 Interview Answer (Clean Version)
+
+type is more flexible and supports unions, intersections, and advanced type manipulation.
+interface supports declaration merging and is preferred for extensible object contracts.
+In modern TypeScript, most teams default to type unless they specifically need interface.
+
+
+
+2. What is structural Typing?
+------------------------------ 
+        Structural typing means TypeScript checks compatibility based on the shape/structure of a type, not its name or origin.
+    If two types have the same structure, TypeScript considers them compatible — regardless of what they're called.
+    Example:
+    typescriptclass Dog {
+    name: string;
+    bark() {}
+    }
+
+    class Cat {
+    name: string;
+    bark() {}
+    }
+
+    function makeNoise(animal: Dog) {
+    animal.bark();
+    }
+
+    const cat = new Cat();
+    makeNoise(cat); // ✅ No error! Cat has same shape as Dog
+    TypeScript doesn't care that cat is a Cat, not a Dog. It only checks: "does this object have the required properties and methods?" — and it does, so it's fine.
+
+    Contrast with Nominal Typing (like Java/C#):
+    In nominal typing, types are compatible only if they share the same name or explicitly declared relationship. The same code in Java would throw a compile error because Cat is not Dog.
+
+    Another classic example:
+    typescriptinterface Point {
+        x: number;
+        y: number;
+    }
+
+    const coordinates = { x: 10, y: 20, z: 30 }; // has extra property
+
+    function plot(p: Point) {}
+
+    plot(coordinates); // ✅ Fine — it has x and y, extras are ignored
+    As long as the object has at least the required structure, TypeScript is happy.
+
+
+3.What is the difference between any, unknown, and never?
+----------------------------------------------------------
+any → "I don't care, trust me"
+unknown → "I don't know yet, let me check first"
+never → "This should never happen"
+
+
+4. What is generic inferrence
+------------------------------
+    what is inferrence
+    ------------------
+    let a = "masood" // string
+    let b = 8 // number
+
+    Generic Inference
+    typescript
+    function identity<T>(value: T): T {
+    return value;
+    }
+
+    const result = identity("hello"); // T inferred as string
+    const num = identity(42);
+
+    const vs let Inference
+    typescriptlet x = "hello";   // inferred as string (wide)
+    const y = "hello"; // inferred as "hello" (literal/narrow)
+
+    When Inference Falls Short
+    --------------------
+    Sometimes TypeScript can't infer correctly and you need to help it:
+    typescriptconst empty = [];           // never[] — too narrow
+    const items: string[] = []; // ✅ explicitly typed
+
+    function parse(data: any) {
+    return data;  // return type is any — not helpful
+    }
+
+
+Advance
+-------
+1.Generics in TypeScript
+    Generics allow you to write reusable, flexible code that works with multiple types while still maintaining full type safety. 
+    Think of them as type placeholders that get filled in when the code is actually used.
+
+    function getFirst<T>(arr: T[]): T {
+        return arr[0];
+    }
+
+    // TypeScript infers T automatically
+    const num = getFirst([1, 2, 3]);         // T = number
+    const str = getFirst(["a", "b", "c"]);   // T = string
+    const bool = getFirst([true, false]);    // T = boolean
+
+    Generic class
+    ------------
+    class Stack<T> {
+        private items: T[] = [];
+
+        push(item: T): void {
+            this.items.push(item);
+        }
+
+        pop(): T | undefined {
+            return this.items.pop();
+        }
+
+        peek(): T | undefined {
+            return this.items[this.items.length - 1];
+        }
+    }
+
+    const numberStack = new Stack<number>();
+    numberStack.push(1);
+    numberStack.push(2);
+    numberStack.push("hello"); // ❌ Error! Only numbers allowed
+
+    const stringStack = new Stack<string>();
+    stringStack.push("hello"); // ✅
+
+2.What is the difference between: Partial<T> Required<T> Readonly<T> ?
+    These are built-in Utility Types in TypeScript used to transform existing types.
+        Partial<T>
+        ✅ Makes all properties optional
+        2️⃣ Required<T>
+        ✅ Makes all properties required
+        3️⃣ Readonly<T>
+        ✅ Makes all properties immutable
+
+3. How does Pick<T, K> differ from Omit<T, K>?
+    Both Pick and Omit are utility types in TypeScript used to create new types from existing ones — but they work in opposite ways.
+    
+    ex: 
+    interface User {
+        id: number;
+        name: string;
+        email: string;
+        password: string;
+    }
+
+    type PublicUser = Pick<User, "id" | "name">;
+    type SafeUser = Omit<User, "password">;
+
+4. What are Mapped Types?
+    Mapped Types allow you to create a new type by transforming each property of an existing type.
+
+    🔁 “Looping over keys of a type and modifying them.”
+    
+    type NewType<T> = {
+        [K in keyof T]: T[K];
+    };
+
+    interface User {
+        id: number;
+        name: string;
+        email: string;
+    }
+    Make everything optional:
+        type MyPartial<T> = {
+        [K in keyof T]?: T[K];
+    };
+
+    type PartialUser = MyPartial<User>;
+    Result:
+    {
+        id?: number;
+        name?: string;
+        email?: string;
+    }
+    "Mapped Types allow you to transform existing types by iterating over their keys and modifying property types or modifiers."
+
+5.What are Conditional Types?
+    "Conditional Types allow you to create types that depend on a condition."
+        type IsString<T> = T extends string ? true : false;
+
+        type A = IsString<string>;  // true
+        type B = IsString<number>;  // false
+
+6.What is infer in TypeScript?
+    infer is a keyword used inside Conditional Types to capture and extract a type dynamically.
+
+    ex: 
+        type UnwrapPromise<T> =
+        T extends Promise<infer U> ? U : T;
+
+        type A = UnwrapPromise<Promise<string>>; // string
+        type B = UnwrapPromise<number>; // number
+
+7. Diff between interface declaration and type declaration?
+    Interfaces support declaration merging, while type aliases do not.
+
+    💡 Senior-Level Insight
+
+    If you're designing a public library or framework:
+
+    Use interface when you expect consumers to extend it.
+
+    Use type when you need unions, intersections, or advanced mapped/conditional types.
+
+    ✅ Case 1: interface (Declaration Merging)
+    interface A { x: number }
+    interface A { y: string }
+
+    🔥 Result:
+
+    TypeScript merges them automatically.
+
+    It becomes:
+
+    interface A {
+        x: number;
+        y: string;
+    }
+
+
+    This feature is called:
+
+    🧠 Declaration Merging
+
+    So this works:
+
+    const obj: A = {
+    x: 10,
+    y: "hello"
+    };
+
+    ❌ Case 2: type (No Merging)
+    type A = { x: number }
+    type A = { y: string }
+
+    🚨 Result:
+
+    You get an error:
+
+    Duplicate identifier 'A'
+
+
+    Type aliases cannot be redeclared.
